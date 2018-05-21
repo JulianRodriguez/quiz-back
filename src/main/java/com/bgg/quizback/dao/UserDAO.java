@@ -8,7 +8,7 @@ import com.bgg.quizback.model.User;
 @Repository
 public interface UserDAO extends PagingAndSortingRepository<User, Integer>{
 
-	//User FindOneByNameOrderByIdUserDesc(String name);
+	//Optional<User> findOneByNameOrderByIdUserDesc(String name);
 	
 	
 }
