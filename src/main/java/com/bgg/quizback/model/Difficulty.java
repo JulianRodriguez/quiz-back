@@ -15,11 +15,14 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-public class Dificultad {
+public class Difficulty {
 	
 	@Id
 	@GeneratedValue
 	private Integer idDificultad;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = Question.FIELD_DIFFICULTY)
+	private List<Question> questions;
 	
 
 }
