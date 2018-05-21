@@ -1,7 +1,6 @@
 package com.bgg.quizback.model;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,7 +19,8 @@ import lombok.Setter;
 public class Result {
 
 
-	public static final String FIELD_RESULT = "curso";
+	public static final String FIELD_USER = "user";
+	public static final String FIELD_QUESTIONARY = "questionary";
 
 	@Id
 	@GeneratedValue
@@ -29,8 +29,15 @@ public class Result {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
-	@JoinColumn(name = FIELD_RESULT)
+	@JoinColumn(name = FIELD_USER)
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Curso curso;
+	private User user;
 
+	
+	@JoinColumn(name = FIELD_QUESTIONARY)
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Questionary questionary;
+	
+	
+	
 }
