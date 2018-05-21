@@ -33,7 +33,7 @@ public class Questionary {
 	
 	@JoinColumn(name = FIELD_COURSE)
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Course curso;
+	private Course course;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Result.FIELD_QUESTIONARY)
 	private List<Result> result;
