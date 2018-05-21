@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Getter;
@@ -29,8 +28,8 @@ public class Course {
 	@Column(nullable = false)
 	private String name;
 	
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = Questionary.FIELD_COURSE)
-	//private List<Questionary> questionary;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = Questionary.FIELD_COURSE)
+	private List<Questionary> questionary;
 
 	@JoinColumn(name = FIELD_USER)
 	@ManyToMany(fetch = FetchType.LAZY)

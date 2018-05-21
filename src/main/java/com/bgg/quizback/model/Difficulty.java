@@ -2,7 +2,6 @@ package com.bgg.quizback.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +19,8 @@ public class Difficulty {
 	@Id
 	@GeneratedValue
 	private Integer idDificultad;
+	
+	private String type;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Question.FIELD_DIFFICULTY)
 	private List<Question> questions;
