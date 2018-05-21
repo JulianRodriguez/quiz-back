@@ -15,9 +15,13 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-public class Respuesta {
+public class Answer {
 
 	@Id
 	@GeneratedValue
-	private Integer idRespuesta;
+	private Integer idAnswer;
+	
+	private Boolean correct;
+	
+	
 }
