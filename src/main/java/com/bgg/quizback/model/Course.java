@@ -18,11 +18,9 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-public class Curso {
+public class Course {
 
 	public static final String FIELD_USER = "user";
-	public static final String FIELD_CUESTIONARIO = "cuestionario";
-
 
 	@Id
 	@GeneratedValue
@@ -31,15 +29,10 @@ public class Curso {
 	@Column(nullable = false)
 	private String name;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = Result.FIELD_RESULT)
-	private List<Result> result;
-	
-	@JoinColumn(name = FIELD_CUESTIONARIO)
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Cuestionario cuestionario;
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = Questionary.FIELD_COURSE)
+	//private List<Questionary> questionary;
 
 	@JoinColumn(name = FIELD_USER)
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<User> user;
-
 }
