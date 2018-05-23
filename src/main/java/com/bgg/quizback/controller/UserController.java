@@ -16,9 +16,12 @@ import com.bgg.quizback.dto.UserDTO;
 import com.bgg.quizback.dto.UserPostDTO;
 import com.bgg.quizback.model.User;
 import com.bgg.quizback.service.UserService;
+import com.mysql.jdbc.log.Log;
+
+import lombok.extern.slf4j.Slf4j;
 
 
-
+@Slf4j
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -28,7 +31,6 @@ public class UserController {
 
 	@Autowired
 	UserMapper userMapper;
-
 	@RequestMapping(method = RequestMethod.GET)
 	public Set<UserDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
 			@RequestParam(defaultValue = "10", required = false) Integer size) {
