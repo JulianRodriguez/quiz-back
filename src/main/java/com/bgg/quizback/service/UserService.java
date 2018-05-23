@@ -1,7 +1,7 @@
 package com.bgg.quizback.service;
 
-public interface UserService {
+import com.bgg.quizback.model.User;
 
-	void test();
+public interface UserService extends AbstractCRUBService<User, Integer>{
 
 }
