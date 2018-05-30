@@ -1,5 +1,7 @@
 package com.bgg.quizback.controller;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bgg.quizback.controller.mapper.user.UserMapper;
+import com.bgg.quizback.component.mapper.user.UserMapper;
+import com.bgg.quizback.dao.UserDAO;
 import com.bgg.quizback.dto.UserDTO;
 import com.bgg.quizback.dto.UserPostDTO;
 import com.bgg.quizback.model.User;
@@ -28,34 +31,42 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	UserDAO userdao;
 
 	@Autowired
 	UserMapper userMapper;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public Set<UserDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
 			@RequestParam(defaultValue = "10", required = false) Integer size) {
 		final Set<User> users = userService.findAll(PageRequest.of(page, size));
 		return userMapper.modelToDto(users);
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public UserDTO create(@RequestBody UserPostDTO dto) {
-		final User user = userMapper.dtoToModel(dto);
+		final User user = userMapper.mapper(dto);
 		final User createUser = userService.create(user);
-		return userMapper.modelToDto(createUser);
+		return userMapper.mapper(createUser);
 	}
-/*
+
 	@RequestMapping(value = "/{idUser}", method = RequestMethod.DELETE)
-	public void updatePerson(@PathVariable Integer idUser) {
-		final User user = userService.findById(idUser);
-		userService.delete(user);
+	public void deleteUser(@PathVariable("idUser") Integer idUser) {
+		userService.delete(idUser);
 	}
-	*/
+	
 	
 	@RequestMapping(value = "/{idUser}", method = RequestMethod.PUT)
-	public void updatePerson(@PathVariable Integer idUser, @RequestBody User user) {
+	public void updateUser(@PathVariable Integer idUser, @RequestBody UserPostDTO dto) {
+		User user = userService.findByIdUser(idUser);
+		user.setName(dto.getName());
+		user.setEmail(dto.getEmail());
+		user.setPassword(dto.getPassword());
 		userService.update(user);
 	}
+
 
 
 

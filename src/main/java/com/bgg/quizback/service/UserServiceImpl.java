@@ -4,12 +4,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bgg.quizback.dao.UserDAO;
+import com.bgg.quizback.model.Quiz;
 import com.bgg.quizback.model.User;
 
 
@@ -18,6 +20,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserDAO userdao;
+	
+	@Autowired
+	private DozerBeanMapper dozer;
 
 	@Override
 	public User create(User t) {
@@ -25,9 +30,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(User t) {
-		userdao.save(t);
-	}
+	 public User findByIdUser(Integer id){
+		 return userdao.findByIdUser(id);
+	 }
 
 	@Override
 	public Optional<User> findById(Integer id) {
@@ -46,6 +51,22 @@ public class UserServiceImpl implements UserService {
 		userdao.delete(t);
 		
 	}
+	
+	@Override
+	public void delete(Integer idUser) {
+		userdao.deleteById(idUser);
+	}
+
+	@Override
+	public void update(User t) {
+		userdao.save(t);
+	}
+
+	@Override
+	public Set<Quiz> findByIdCourse(Integer id) {
+		return userdao.findByCourse(id);
+	}
+
 	
 
 	
