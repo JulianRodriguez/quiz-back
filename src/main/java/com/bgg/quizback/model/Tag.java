@@ -22,8 +22,8 @@ public class Tag {
 	@GeneratedValue
 	private Integer idTag;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Questionary.FIELD_TAG)
-	private List<Questionary> questionary;
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Quiz.FIELD_TAG)
+	private List<Quiz> quiz;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Question.FIELD_TAG)
 	private List<Question> question;

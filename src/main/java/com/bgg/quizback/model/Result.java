@@ -20,11 +20,11 @@ public class Result {
 
 
 	public static final String FIELD_USER = "user";
-	public static final String FIELD_QUESTIONARY = "questionary";
+	public static final String FIELD_QUIZ = "quiz";
 
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer idResult;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
@@ -34,9 +34,9 @@ public class Result {
 	private User user;
 
 	
-	@JoinColumn(name = FIELD_QUESTIONARY)
+	@JoinColumn(name = FIELD_QUIZ)
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Questionary questionary;
+	private Quiz quiz;
 	
 	
 	

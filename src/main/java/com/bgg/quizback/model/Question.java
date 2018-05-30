@@ -2,6 +2,7 @@ package com.bgg.quizback.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,8 +26,11 @@ public class Question{
 	@GeneratedValue
 	private Integer idPreguntas;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Questionary.FIELD_QUESTION)
-	private List<Questionary> questionary;
+	@Column(nullable = false)
+	private String enunciado;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Quiz.FIELD_QUESTION)
+	private List<Quiz> quiz;
 	
 	@JoinColumn(name = FIELD_TAG)
 	@ManyToOne(fetch = FetchType.LAZY)
