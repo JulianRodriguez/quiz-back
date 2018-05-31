@@ -62,10 +62,12 @@ public class UserServiceImpl implements UserService {
 		userdao.save(t);
 	}
 
+	/*
 	@Override
 	public Set<Quiz> findByIdCourse(Integer id) {
 		return userdao.findByCourse(id);
 	}
+	*/
 
 	
 

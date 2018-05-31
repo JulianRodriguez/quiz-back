@@ -10,7 +10,7 @@ public interface UserService extends AbstractCRUBService<User, Integer>{
 
 	void delete(Integer idUser);
 	User findByIdUser(Integer id);
-	Set<Quiz> findByIdCourse(Integer id);
+	//Set<Quiz> findByIdCourse(Integer id);
 
 
 }
