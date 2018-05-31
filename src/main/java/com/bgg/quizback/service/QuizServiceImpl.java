@@ -9,7 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.bgg.quizback.dao.QuestionDAO;
 import com.bgg.quizback.dao.QuizDAO;
+import com.bgg.quizback.model.Question;
 import com.bgg.quizback.model.Quiz;
 
 @Service
@@ -17,7 +19,8 @@ public class QuizServiceImpl implements QuizService{
 	
 	@Autowired
 	QuizDAO quizdao;
-
+	
+	
 	@Override
 	public Quiz create(Quiz t) {
 		return quizdao.save(t);
