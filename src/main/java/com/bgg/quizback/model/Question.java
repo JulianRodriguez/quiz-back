@@ -24,10 +24,10 @@ public class Question{
 	
 	@Id
 	@GeneratedValue
-	private Integer idPreguntas;
+	private Integer idQuestion;
 	
 	@Column(nullable = false)
-	private String enunciado;
+	private String statement;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Quiz.FIELD_QUESTION)
 	private List<Quiz> quiz;
