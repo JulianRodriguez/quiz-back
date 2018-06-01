@@ -12,4 +12,5 @@ public interface QuizDAO extends PagingAndSortingRepository<Quiz, Integer>{
 	Quiz findByIdQuiz(Integer idQuiz);
 
 
+
 }
