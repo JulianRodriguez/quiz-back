@@ -1,5 +1,7 @@
 package com.bgg.quizback.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -62,17 +64,15 @@ public class UserServiceImpl implements UserService {
 		userdao.save(t);
 	}
 
-	/*
 	@Override
-	public Set<Quiz> findByIdCourse(Integer id) {
-		return userdao.findByCourse(id);
+	public List<User> findByIdUsers(List<Integer> id) {
+		ArrayList<User> users = new ArrayList<User>();
+		for(int i=0;i<id.size();i++) {
+			User user = userdao.findByIdUser(id);
+			users.add(user);
+		}
+		return users;
 	}
-	*/
 
-	
-
-	
-	
-	
 
 }
