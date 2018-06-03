@@ -31,8 +31,10 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 	
+	/*
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Course.FIELD_USER)
 	private List<Course> course;
+	*/
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Result.FIELD_USER)
 	private List<Result> result;

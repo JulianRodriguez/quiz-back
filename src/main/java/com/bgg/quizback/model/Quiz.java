@@ -36,8 +36,8 @@ public class Quiz {
 	private String name;
 	
 	@JoinColumn(name = FIELD_COURSE)
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Course course;
+	@ManyToMany(fetch = FetchType.LAZY)
+	private List<Course> course;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Result.FIELD_QUIZ)
 	private List<Result> result;

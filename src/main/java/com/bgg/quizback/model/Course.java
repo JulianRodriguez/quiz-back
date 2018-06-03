@@ -1,7 +1,9 @@
 package com.bgg.quizback.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +19,8 @@ import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @Entity
 public class Course {
 
