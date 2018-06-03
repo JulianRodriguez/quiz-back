@@ -11,5 +11,4 @@ import com.bgg.quizback.model.Question;
 public interface QuestionDAO extends PagingAndSortingRepository<Question, Integer> {
 	
 	Question findByIdQuestion(Integer id);
-	void saveQuizQuestion(Integer id,Integer id2);
 }

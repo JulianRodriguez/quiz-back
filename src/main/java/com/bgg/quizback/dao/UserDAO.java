@@ -1,5 +1,6 @@
 package com.bgg.quizback.dao;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public interface UserDAO extends PagingAndSortingRepository<User, Integer>{
 	Optional<User> findById(Integer idUser);
 	User findByIdUser(Integer idUser);
 	void save(Optional<User> t);
-	Set<Quiz> findByCourse(Integer idCourse) ;
+	User findByIdUser(List<Integer> id);
+
 	
 }
