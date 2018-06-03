@@ -64,12 +64,5 @@ public class QuestionServiceImpl implements QuestionService{
 		questiondao.deleteById(id);
 		
 	}
-	
-	@Override
-	public void saveQuizQuestion(Integer idquestion, Integer idquiz) {
-		final Quiz quiz = quizdao.findByIdQuiz(idquiz);
-		final Question question = questiondao.findByIdQuestion(idquestion);
-	
-	}
 
 }
