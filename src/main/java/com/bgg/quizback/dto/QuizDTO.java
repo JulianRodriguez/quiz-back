@@ -13,14 +13,5 @@ import lombok.Data;
 public class QuizDTO {
 
 	private Integer idQuiz;
-	private String tipo;	
 	private String name;
-	
-	/*
-	private Integer idCourse;
-	private List<Integer> idResult;
-	private List<Integer> idTag;
-	private List<Integer> idPreguntas;
-	*/
-
 }

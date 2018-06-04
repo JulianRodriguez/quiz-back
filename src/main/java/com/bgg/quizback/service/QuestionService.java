@@ -8,6 +8,10 @@ public interface QuestionService extends AbstractCRUBService<Question, Integer>{
 	
 	Question findByIdQuestion(Integer id);
 	void delete(Integer id);
+	
+	Set<Question> findByIdQuestionQuiz(Integer id);
+	
+	Question findByIdQuestion(Integer id, Integer id2);
 
 
 }

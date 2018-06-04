@@ -1,7 +1,5 @@
 package com.bgg.quizback.service;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import com.bgg.quizback.model.Course;
@@ -18,7 +16,11 @@ public interface CourseService extends AbstractCRUBService<Course, Integer>{
 	
 	void addusercourse(Integer idCourse, Integer idUser);
 	
+	Set<Quiz> findByIdCourseQuiz(Integer id);	
+	
 	Set<Course> findByIdUserCourse(Integer id);
+	
 	Set<User> findByIdCourseUser(Integer id);
+	
 
 }

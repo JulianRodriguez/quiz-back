@@ -11,6 +11,5 @@ public class CourseDTO {
 	private Integer idCourse;
 	private String name;
 	private Date start;
-	private Date finish;
 
 }

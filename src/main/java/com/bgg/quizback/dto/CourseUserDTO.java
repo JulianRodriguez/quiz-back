@@ -8,8 +8,8 @@ import com.bgg.quizback.model.User;
 import lombok.Data;
 
 @Data
-public class CourseUserDTO extends CourseDTO{
+public class CourseUserDTO{
 	
-	private List<User> idUser;
+	private Integer idCourse;
 	
 }

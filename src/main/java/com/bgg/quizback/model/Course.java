@@ -1,14 +1,13 @@
 package com.bgg.quizback.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -27,7 +26,7 @@ public class Course {
 	public static final String FIELD_USER = "user";
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	private Integer idCourse;
 
 	@Column(nullable = false)
@@ -36,13 +35,10 @@ public class Course {
 	@Temporal(TemporalType.TIME)
 	private Date start;
 	
-	@Temporal(TemporalType.TIME)
-	private Date finish;
-	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Quiz.FIELD_COURSE)
-	private List<Quiz> quiz;
+	private Set<Quiz> quiz;
 
 	@JoinColumn(name = FIELD_USER)
 	@ManyToMany(fetch = FetchType.LAZY)
-	private List<User> user;
+	private Set<User> user;
 }

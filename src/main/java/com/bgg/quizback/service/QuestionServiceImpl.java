@@ -4,10 +4,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.catalina.filters.AddDefaultCharsetFilter;
-import org.springframework.aop.aspectj.AspectJAdviceParameterNameDiscoverer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.transform.impl.AddPropertyTransformer;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.bgg.quizback.dao.QuestionDAO;
 import com.bgg.quizback.dao.QuizDAO;
 import com.bgg.quizback.model.Question;
-import com.bgg.quizback.model.Quiz;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{
@@ -64,5 +60,17 @@ public class QuestionServiceImpl implements QuestionService{
 		questiondao.deleteById(id);
 		
 	}
+
+	@Override
+	public Set<Question> findByIdQuestionQuiz(Integer id) {
+		return questiondao.findByIdQuestionQuiz(id);
+	}
+
+	@Override
+	public Question findByIdQuestion(Integer id, Integer id2) {
+		return questiondao.findByIdQuestion(id,id2);
+	}
+
+
 
 }

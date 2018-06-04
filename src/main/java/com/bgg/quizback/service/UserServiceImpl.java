@@ -1,19 +1,16 @@
 package com.bgg.quizback.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bgg.quizback.dao.UserDAO;
-import com.bgg.quizback.model.Quiz;
 import com.bgg.quizback.model.User;
 
 
@@ -23,9 +20,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDAO userdao;
 	
-	@Autowired
-	private DozerBeanMapper dozer;
-
 	@Override
 	public User create(User t) {
 		return userdao.save(t);
@@ -58,6 +52,8 @@ public class UserServiceImpl implements UserService {
 	public void delete(Integer idUser) {
 		userdao.deleteById(idUser);
 	}
+	
+	
 
 	@Override
 	public void update(User t) {
@@ -65,13 +61,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findByIdUsers(List<Integer> id) {
-		ArrayList<User> users = new ArrayList<User>();
+	public Set<User> findByIdUsers(Set<Integer> id) {
+		Set<User> users = new HashSet<>();
 		for(int i=0;i<id.size();i++) {
 			User user = userdao.findByIdUser(id);
 			users.add(user);
 		}
 		return users;
+	}
+
+	@Override
+	public Set<User> findByidUserCourse(Integer id) {
+		return userdao.findByidUserCourse(id);
+	}
+
+	@Override
+	public Optional<User> findByEmail(String email) {
+		return userdao.findByEmail(email);
 	}
 
 

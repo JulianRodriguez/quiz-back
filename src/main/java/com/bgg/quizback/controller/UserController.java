@@ -1,6 +1,5 @@
 package com.bgg.quizback.controller;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,20 +12,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bgg.quizback.component.mapper.user.UserMapper;
+import com.bgg.quizback.component.mapper.user.UserCourseMap;
+import com.bgg.quizback.component.mapper.user.UserMap;
+import com.bgg.quizback.component.mapper.user.UserPostMap;
 import com.bgg.quizback.dao.UserDAO;
+import com.bgg.quizback.dto.UserCourseDTO;
 import com.bgg.quizback.dto.UserDTO;
 import com.bgg.quizback.dto.UserPostDTO;
+import com.bgg.quizback.exception.EmailDuplicatedException;
+import com.bgg.quizback.exception.UserNotFoundException;
 import com.bgg.quizback.model.User;
 import com.bgg.quizback.service.UserService;
-import com.mysql.jdbc.log.Log;
 
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/user")
 public class UserController {
 
 	@Autowired
@@ -36,35 +38,57 @@ public class UserController {
 	UserDAO userdao;
 
 	@Autowired
-	UserMapper userMapper;
+	UserMap userMapper;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@Autowired
+	UserPostMap userPostMap;
+	
+	@Autowired
+	UserCourseMap usercoursemap;
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/user")
 	public Set<UserDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
 			@RequestParam(defaultValue = "10", required = false) Integer size) {
 		final Set<User> users = userService.findAll(PageRequest.of(page, size));
 		return userMapper.modelToDto(users);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public UserDTO create(@RequestBody UserPostDTO dto) {
-		final User user = userMapper.mapper(dto);
+	@RequestMapping(method = RequestMethod.POST, value = "/user")
+	public UserDTO create(@RequestBody UserPostDTO dto) throws EmailDuplicatedException{
+		Optional<User> u = userService.findByEmail(dto.getEmail());
+		if(u.isPresent())
+			throw new EmailDuplicatedException();
+		final User user = userMapper.dtoToModel(dto);
 		final User createUser = userService.create(user);
-		return userMapper.mapper(createUser);
+		return userMapper.modelToDto(createUser);
 	}
 
-	@RequestMapping(value = "/{idUser}", method = RequestMethod.DELETE)
-	public void deleteUser(@PathVariable("idUser") Integer idUser) {
+	@RequestMapping(value = "/user/{idUser}", method = RequestMethod.DELETE)
+	public void deleteUser(@PathVariable("idUser") Integer idUser) throws UserNotFoundException {
+		Optional<User> u = userService.findById(idUser);
+		if(!u.isPresent())
+			throw new UserNotFoundException();
 		userService.delete(idUser);
+	}
+	
+	@RequestMapping(value = "/course/{idCourse}/user", method = RequestMethod.GET)
+	public Set<UserCourseDTO> findByidUserCourse(@PathVariable Integer idCourse) {
+		 final Set<User> u = userService.findByidUserCourse(idCourse);
+		return usercoursemap.modelToDto(u);
 	}
 	
 	
 	@RequestMapping(value = "/{idUser}", method = RequestMethod.PUT)
-	public void updateUser(@PathVariable Integer idUser, @RequestBody UserPostDTO dto) {
+	public void updateUser(@PathVariable Integer idUser, @RequestBody UserPostDTO dto) throws UserNotFoundException {
+		Optional<User> u = userService.findById(idUser);
+		if(!u.isPresent())
+			throw new UserNotFoundException();
 		User user = userService.findByIdUser(idUser);
 		user.setName(dto.getName());
 		user.setEmail(dto.getEmail());
 		user.setPassword(dto.getPassword());
 		userService.update(user);
+
 	}
 
 

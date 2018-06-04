@@ -1,13 +1,13 @@
 package com.bgg.quizback.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import lombok.Getter;
@@ -15,28 +15,24 @@ import lombok.Setter;
 
 @Setter
 @Getter
+
 @Entity
 public class User {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer idUser;
 
 	@Column(nullable = false)
 	private String name;
 
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String email;
 
 	@Column(nullable = false)
 	private String password;
 	
-	/*
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Course.FIELD_USER)
-	private List<Course> course;
-	*/
-	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Result.FIELD_USER)
-	private List<Result> result;
+	private Set<Result> result;
 
 }

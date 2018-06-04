@@ -1,9 +1,12 @@
 package com.bgg.quizback.model;
 
 import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,8 +26,11 @@ public class Result {
 	public static final String FIELD_QUIZ = "quiz";
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	private Integer idResult;
+	
+	@Column
+	private Integer qualification;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;

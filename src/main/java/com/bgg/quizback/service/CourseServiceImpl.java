@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bgg.quizback.dao.CourseDAO;
-import com.bgg.quizback.dao.QuestionDAO;
 import com.bgg.quizback.model.Course;
 import com.bgg.quizback.model.Quiz;
 import com.bgg.quizback.model.User;
@@ -73,8 +72,6 @@ public class CourseServiceImpl implements CourseService{
 
 	@Override
 	public void addusercourse(Integer idCourse, Integer idUser) {
-		Course course = coursedao.findByIdCourse(idCourse);
-		User user = userservice.findByIdUser(idUser);
 		coursedao.addCourseUser(idCourse, idUser);
 		
 	}
@@ -87,6 +84,11 @@ public class CourseServiceImpl implements CourseService{
 	@Override
 	public Set<User> findByIdCourseUser(Integer id) {
 		return coursedao.findByIdCourseUser(id);
+	}
+	
+	@Override
+	public Set<Quiz> findByIdCourseQuiz(Integer id) {
+		return coursedao.findByIdCourseQuiz(id);
 	}
 
 }

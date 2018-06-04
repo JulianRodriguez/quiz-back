@@ -1,10 +1,11 @@
 package com.bgg.quizback.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -17,13 +18,13 @@ import lombok.Setter;
 public class Difficulty {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	private Integer idDificultad;
 	
 	private String type;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Question.FIELD_DIFFICULTY)
-	private List<Question> questions;
+	private Set<Question> questions;
 	
 
 }

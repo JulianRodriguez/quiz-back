@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public abstract class AbstractMapper<M, D> implements Mapper<M, D> {
-/*
+
 	@Autowired
 	public DozerBeanMapper dozer;
 
@@ -32,6 +32,6 @@ public abstract class AbstractMapper<M, D> implements Mapper<M, D> {
 	public Set<D> modelToDto(Set<M> models) {
 		return models.stream().map(m -> modelToDto(m)).collect(Collectors.toSet());
 	}
-*/
+
 
 }

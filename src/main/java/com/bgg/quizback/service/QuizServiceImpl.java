@@ -9,9 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.bgg.quizback.dao.QuestionDAO;
 import com.bgg.quizback.dao.QuizDAO;
-import com.bgg.quizback.model.Question;
 import com.bgg.quizback.model.Quiz;
 
 @Service
@@ -19,6 +17,9 @@ public class QuizServiceImpl implements QuizService{
 	
 	@Autowired
 	QuizDAO quizdao;
+	
+	@Autowired
+	CourseService courseservice;
 	
 	
 	@Override
@@ -60,5 +61,24 @@ public class QuizServiceImpl implements QuizService{
 	public Quiz findByIdQuiz(Integer idQuiz) {
 		return quizdao.findByIdQuiz(idQuiz);
 	}
+
+	@Override
+	public void addquizcourse(Integer idCourse, Integer idQuiz) {
+		quizdao.addquizcourse(idCourse,idQuiz);
+		
+	}
+
+	@Override
+	public Set<Quiz> findByIdCourse(Integer id) {
+		return quizdao.findByIdCourse(id);
+	}
+
+	@Override
+	public void addquizquestion(Integer idQuiz, Integer idQuestion) {
+		quizdao.addquizquestion(idQuiz,idQuestion);
+		
+	}
+	
+
 
 }

@@ -10,5 +10,6 @@ public class UserDTO {
 	private Integer idUser;
 	private String name;
 	private String email;
+	
 
 }
