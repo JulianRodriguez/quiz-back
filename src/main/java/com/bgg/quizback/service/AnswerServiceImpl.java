@@ -11,12 +11,16 @@ import org.springframework.stereotype.Service;
 
 import com.bgg.quizback.dao.AnswerDAO;
 import com.bgg.quizback.model.Answer;
+import com.bgg.quizback.model.Question;
 
 @Service
 public class AnswerServiceImpl implements AnswerService{
 	
 	@Autowired
 	AnswerDAO answerdao;
+	
+	@Autowired
+	QuestionService Questionservice;
 
 	@Override
 	public Answer create(Answer t) {
@@ -49,7 +53,10 @@ public class AnswerServiceImpl implements AnswerService{
 
 	@Override
 	public void addanswerquestion(Integer idQuestion, Integer idAnswer) {
-		answerdao.addanswerquestion(idQuestion,idAnswer);
+		Question question = Questionservice.findByIdQuestion(idQuestion);
+		Set<Answer> answers = question.getAnswer();
+		if(answers.size()<4)
+			answerdao.addanswerquestion(idQuestion,idAnswer);
 		
 	}
 
