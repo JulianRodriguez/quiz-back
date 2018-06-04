@@ -57,7 +57,6 @@ public class AnswerServiceImpl implements AnswerService{
 		Set<Answer> answers = question.getAnswer();
 		if(answers.size()<4)
 			answerdao.addanswerquestion(idQuestion,idAnswer);
-		
-	}
+		}
 
 }
