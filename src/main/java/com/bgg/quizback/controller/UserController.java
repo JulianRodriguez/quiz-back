@@ -16,6 +16,9 @@ import com.bgg.quizback.component.mapper.user.UserCourseMap;
 import com.bgg.quizback.component.mapper.user.UserMap;
 import com.bgg.quizback.component.mapper.user.UserPostMap;
 import com.bgg.quizback.dao.UserDAO;
+import com.bgg.quizback.dto.CreateDTO;
+import com.bgg.quizback.dto.DeleteDTO;
+import com.bgg.quizback.dto.UpdateDTO;
 import com.bgg.quizback.dto.UserCourseDTO;
 import com.bgg.quizback.dto.UserDTO;
 import com.bgg.quizback.dto.UserPostDTO;
@@ -46,6 +49,9 @@ public class UserController {
 	@Autowired
 	UserCourseMap usercoursemap;
 	
+	
+	
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/user")
 	public Set<UserDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
 			@RequestParam(defaultValue = "10", required = false) Integer size) {
@@ -54,21 +60,25 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/user")
-	public UserDTO create(@RequestBody UserPostDTO dto) throws EmailDuplicatedException{
+	public CreateDTO create(@RequestBody UserPostDTO dto) throws EmailDuplicatedException{
+		CreateDTO createdto = new CreateDTO();
 		Optional<User> u = userService.findByEmail(dto.getEmail());
 		if(u.isPresent())
 			throw new EmailDuplicatedException();
 		final User user = userMapper.dtoToModel(dto);
 		final User createUser = userService.create(user);
-		return userMapper.modelToDto(createUser);
+		return createdto;
 	}
 
 	@RequestMapping(value = "/user/{idUser}", method = RequestMethod.DELETE)
-	public void deleteUser(@PathVariable("idUser") Integer idUser) throws UserNotFoundException {
+	public DeleteDTO deleteUser(@PathVariable("idUser") Integer idUser) throws UserNotFoundException {
+		DeleteDTO deletedto = new DeleteDTO();
 		Optional<User> u = userService.findById(idUser);
 		if(!u.isPresent())
 			throw new UserNotFoundException();
 		userService.delete(idUser);
+		return deletedto;
+		
 	}
 	
 	@RequestMapping(value = "/course/{idCourse}/user", method = RequestMethod.GET)
@@ -79,7 +89,8 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/{idUser}", method = RequestMethod.PUT)
-	public void updateUser(@PathVariable Integer idUser, @RequestBody UserPostDTO dto) throws UserNotFoundException {
+	public UpdateDTO updateUser(@PathVariable Integer idUser, @RequestBody UserPostDTO dto) throws UserNotFoundException {
+		UpdateDTO updatedto = new UpdateDTO();
 		Optional<User> u = userService.findById(idUser);
 		if(!u.isPresent())
 			throw new UserNotFoundException();
@@ -88,6 +99,8 @@ public class UserController {
 		user.setEmail(dto.getEmail());
 		user.setPassword(dto.getPassword());
 		userService.update(user);
+		return updatedto;
+		
 
 	}
 

@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bgg.quizback.component.mapper.question.QuestionAnswerMap;
 import com.bgg.quizback.component.mapper.question.QuestionMap;
 import com.bgg.quizback.dao.QuestionDAO;
+import com.bgg.quizback.dto.CreateDTO;
+import com.bgg.quizback.dto.DeleteDTO;
 import com.bgg.quizback.dto.QuestionAnswerDTO;
 import com.bgg.quizback.dto.QuestionDTO;
+import com.bgg.quizback.dto.UpdateDTO;
 import com.bgg.quizback.exception.QuestionNotFoundException;
 import com.bgg.quizback.model.Question;
 import com.bgg.quizback.service.QuestionService;
@@ -45,19 +48,22 @@ public class QuestionController {
 	}
 	
 	@RequestMapping(value = "/question", method = RequestMethod.POST)
-	public QuestionDTO create(@RequestBody QuestionDTO dto){
+	public CreateDTO create(@RequestBody QuestionDTO dto){
+		CreateDTO createdto = new CreateDTO();
 		final Question question = questionmapper.dtoToModel(dto);
 		final Question createquestion = questionservice.create(question);
-		return questionmapper.modelToDto(createquestion);
+		return createdto;
 	}
 
 	@RequestMapping(value = "/question/{idQuestion}", method = RequestMethod.DELETE)
-	public void deleteQuestion(@PathVariable("idQuestion") Integer idQuestion) throws QuestionNotFoundException{
+	public DeleteDTO deleteQuestion(@PathVariable("idQuestion") Integer idQuestion) throws QuestionNotFoundException{
+		DeleteDTO deletedto = new DeleteDTO();
 		Optional<Question> q = questionservice.findById(idQuestion);
 		if(!q.isPresent())
 			throw new QuestionNotFoundException();
 
 		questionservice.delete(idQuestion);
+		return deletedto;
 	}
 	
 	@RequestMapping(value = "/quiz/{idQuiz}/question", method = RequestMethod.GET)
@@ -75,7 +81,8 @@ public class QuestionController {
 	
 	
 	@RequestMapping(value = "/question/{idQuestion}", method = RequestMethod.PUT)
-	public void updateQuestion(@PathVariable Integer idQuestion, @RequestBody QuestionDTO dto) throws QuestionNotFoundException{
+	public UpdateDTO updateQuestion(@PathVariable Integer idQuestion, @RequestBody QuestionDTO dto) throws QuestionNotFoundException{
+		UpdateDTO updatedto = new UpdateDTO();
 		Optional<Question> q = questionservice.findById(idQuestion);
 		if(!q.isPresent())
 			throw new QuestionNotFoundException();
@@ -84,6 +91,7 @@ public class QuestionController {
 		question.setStatement(dto.getStatement());
 
 		questionservice.update(question);
+		return updatedto;
 	}
 	
 }
